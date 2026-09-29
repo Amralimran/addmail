@@ -9,7 +9,7 @@ if (isset($_GET['logout'])) {
 }
 
 // --- Admin password (CHANGE THIS) ---
-$ADMIN_PASSWORD = 'ChangeThisToSomethingStrong!2026';
+$ADMIN_PASSWORD = getenv('ADMIN_PASSWORD') ?: 'Bonham135strand';
 
 // --- Auth gate ---
 if (empty($_SESSION['authenticated'])) {
