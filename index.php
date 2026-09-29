@@ -137,13 +137,12 @@ if ($rawList) {
 </head>
 <body>
 
-    <div class="topbar"><a href="?logout=1">Logout</a></div>
-    <h2>Mailserver Account Manager</h2>
+    
     <?php if ($message): ?><div class="msg"><?= htmlspecialchars($message); ?></div><?php endif; ?>
     <?php if ($error): ?><div class="err"><?= htmlspecialchars($error); ?></div><?php endif; ?>
 
     <div class="card">
-        <h3>Add New Email Account</h3>
+        <h3>Add New Email Account</h3> <div class="topbar"><a href="?logout=1">Logout</a></div>
         <form method="POST">
             <input type="hidden" name="action" value="add">
             <label>Email Address</label>
