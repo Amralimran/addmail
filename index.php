@@ -117,7 +117,7 @@ if ($rawList) {
         h2 { margin-top: 0; color: #777777; }
         h3 { margin-top: 0; color: #777777; }
         label { display: block; margin-top: 10px; font-size: 0.9em; color: #555; }
-        input, button { padding: 9px; font-size: 0.8em; border-radius: 4px; border: 1px solid #ccc; }
+        input, button { padding: 3px; font-size: 0.9em; border-radius: 4px; border: 1px solid #ccc; }
         input[type="email"], input[type="password"] { width: 100%; }
         button { background: #007bff; color: white; border: none; cursor: pointer; }
         button:hover { background: #0056b3; }
