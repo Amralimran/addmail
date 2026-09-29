@@ -26,7 +26,7 @@ if (empty($_SESSION['authenticated'])) {
             body{font-family:"Segoe UI", Arial, Helvetica, sans-serif;max-width:400px;margin:80px auto;padding:20px;background:#f9f9f9;}
             .card{background:#fff;padding:24px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.08);}
             input{width:100%;padding:10px;margin-top:8px;box-sizing:border-box;border:1px solid #ccc;border-radius:4px;}
-            button{margin-top:14px;padding:10px 18px;background:#007bff;color:#fff;border:none;border-radius:4px;cursor:pointer;}
+            button{margin-top:5px;padding:5px 10px;background:#007bff;color:#fff;border:none;border-radius:4px;cursor:pointer;}
             button:hover{background:#0056b3;}
             .err{color:#dc3545;margin-top:10px;font-size:0.9em;}
         </style></head><body>
@@ -125,7 +125,7 @@ if ($rawList) {
         button.danger:hover { background: #b02a37; }
         .msg { color: #155724; background: #d4edda; padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; }
         .err { color: #721c24; background: #f8d7da; padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; white-space: pre-wrap; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.95em; }
+        table { width: 100%; border-collapse: collapse; margin-top: 5px; font-size: 0.8em; }
         th, td { padding: 10px 8px; border-bottom: 1px solid #eee; text-align: left; vertical-align: middle; }
         th { background: #f1f3f5; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.03em; color: #555; }
         .topbar { text-align: right; margin-bottom: 8px; }
@@ -138,14 +138,12 @@ if ($rawList) {
 <body>
 
     <div class="topbar"><a href="?logout=1">Logout</a></div>
-    <h2>📬 Mailserver Account Manager</h2>
-    <p style="color:#666;font-size:0.9em;margin-top:-6px;">Connected to: <code><?= htmlspecialchars($containerName) ?></code></p>
-
+    <h2>Mailserver Account Manager</h2>
     <?php if ($message): ?><div class="msg"><?= htmlspecialchars($message); ?></div><?php endif; ?>
     <?php if ($error): ?><div class="err"><?= htmlspecialchars($error); ?></div><?php endif; ?>
 
     <div class="card">
-        <h3>➕ Add New Email Account</h3>
+        <h3>Add New Email Account</h3>
         <form method="POST">
             <input type="hidden" name="action" value="add">
             <label>Email Address</label>
@@ -157,7 +155,7 @@ if ($rawList) {
     </div>
 
     <div class="card">
-        <h3>👥 Existing Accounts (<?= count($accounts); ?>)</h3>
+        <h3>Existing Accounts (<?= count($accounts); ?>)</h3>
         <?php if (empty($accounts)): ?>
             <p>No accounts found.</p>
         <?php else: ?>
