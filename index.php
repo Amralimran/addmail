@@ -9,7 +9,10 @@ if (isset($_GET['logout'])) {
 }
 
 // --- Admin password (CHANGE THIS) ---
-$ADMIN_PASSWORD = getenv('ADMIN_PASSWORD') ?: 'Bonham135strand';
+$ADMIN_PASSWORD = getenv('ADMIN_PASSWORD');
+if (empty($ADMIN_PASSWORD)) {
+    die('ADMIN_PASSWORD environment variable is not set.');
+}
 
 // --- Auth gate ---
 if (empty($_SESSION['authenticated'])) {
@@ -20,7 +23,7 @@ if (empty($_SESSION['authenticated'])) {
         <!DOCTYPE html><html><head><title>Login</title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <style>
-            body{font-family:sans-serif;max-width:400px;margin:80px auto;padding:20px;background:#f9f9f9;}
+            body{font-family:"Segoe UI", Arial, Helvetica, sans-serif;max-width:400px;margin:80px auto;padding:20px;background:#f9f9f9;}
             .card{background:#fff;padding:24px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.08);}
             input{width:100%;padding:10px;margin-top:8px;box-sizing:border-box;border:1px solid #ccc;border-radius:4px;}
             button{margin-top:14px;padding:10px 18px;background:#007bff;color:#fff;border:none;border-radius:4px;cursor:pointer;}
@@ -109,7 +112,7 @@ if ($rawList) {
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <style>
         * { box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 760px; margin: 40px auto; padding: 20px; background: #f9f9f9; color: #222; }
+        body { font-family: "Segoe UI", Arial, Helvetica, sans-serif; max-width: 760px; margin: 40px auto; padding: 20px; background: #f9f9f9; color: #222; }
         .card { background: #fff; padding: 22px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
         h2 { margin-top: 0; }
         h3 { margin-top: 0; color: #333; }
