@@ -94,12 +94,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 $rawList = shell_exec("$DOCKER exec -i {$containerName} setup email list 2>&1");
 $accounts = [];
 if ($rawList) {
-    foreach (explode("\n", trim($rawList)) as $line) {
-        $clean = preg_replace('/\x1b\[[0-9;]*m/', '', $line);
-        $clean = trim($clean);
-        if (filter_var($clean, FILTER_VALIDATE_EMAIL)) {
-            $accounts[] = $clean;
-        }
+    // Strip ANSI color codes
+    $clean = preg_replace('/\x1b\[[0-9;]*m/', '', $rawList);
+    // Extract email addresses from anywhere in the output
+    if (preg_match_all('/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/', $clean, $matches)) {
+        $accounts = array_values(array_unique($matches[0]));
     }
 }
 ?>
