@@ -114,22 +114,22 @@ if ($rawList) {
         * { box-sizing: border-box; }
         body { font-family: "Segoe UI", Arial, Helvetica, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #f9f9f9; color: #222; }
         .card { background: #fff; padding: 22px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
-        h2 { margin-top: 0; }
-        h3 { margin-top: 0; color: #333; }
+        h2 { margin-top: 0; color: #777777; }
+        h3 { margin-top: 0; color: #777777; }
         label { display: block; margin-top: 10px; font-size: 0.9em; color: #555; }
-        input, button { padding: 9px; font-size: 0.95em; border-radius: 4px; border: 1px solid #ccc; }
+        input, button { padding: 9px; font-size: 0.8em; border-radius: 4px; border: 1px solid #ccc; }
         input[type="email"], input[type="password"] { width: 100%; }
         button { background: #007bff; color: white; border: none; cursor: pointer; }
         button:hover { background: #0056b3; }
         button.danger { background: #dc3545; }
         button.danger:hover { background: #b02a37; }
-        .msg { color: #155724; background: #d4edda; padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; }
-        .err { color: #721c24; background: #f8d7da; padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; white-space: pre-wrap; }
+        .msg { color: #155724; background: #d4edda; padding: 5px 14px; border-radius: 6px; margin-bottom: 14px; }
+        .err { color: #721c24; background: #f8d7da; padding: 5px 14px; border-radius: 6px; margin-bottom: 14px; white-space: pre-wrap; }
         table { width: 100%; border-collapse: collapse; margin-top: 5px; font-size: 0.8em; }
         th, td { padding: 10px 8px; border-bottom: 1px solid #eee; text-align: left; vertical-align: middle; }
         th { background: #f1f3f5; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.03em; color: #555; }
         .topbar { text-align: right; margin-bottom: 8px; }
-        .topbar a { color: #888; text-decoration: none; font-size: 0.9em; }
+        .topbar a { color: #bb8484; text-decoration: none; font-size: 0.9em; }
         .topbar a:hover { color: #dc3545; }
         .inline-form { display: flex; gap: 6px; align-items: center; }
         .inline-form input[type="password"] { width: 140px; }
