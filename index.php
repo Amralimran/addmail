@@ -45,6 +45,8 @@ if (empty($_SESSION['authenticated'])) {
         exit;
     }
 }
+// --- Configuration ---
+$MAIL_DOMAIN = getenv('MAIL_DOMAIN') ?: 'theimrans.tech';
 
 // --- Discover mailserver container ---
 $DOCKER = '/usr/bin/docker';
@@ -63,8 +65,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
 
     if ($action === 'add' || $action === 'update') {
-        $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
-        $password = $_POST['password'] ?? '';
+    $email = trim($_POST['email'] ?? '');
+
+    // Normalize: force the mail domain
+    if (!empty($email)) {
+        if (str_contains($email, '@')) {
+            $email = explode('@', $email)[0] . '@' . $MAIL_DOMAIN;
+        } else {
+            $email = $email . '@' . $MAIL_DOMAIN;
+        }
+    }
+
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+    $password = $_POST['password'] ?? '';
 
         if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($password)) {
             $safeEmail = escapeshellarg($email);
@@ -167,7 +180,7 @@ if ($rawList) {
         <form method="POST">
             <input type="hidden" name="action" value="add">
             <label>Email Address</label>
-            <input type="email" name="email" required placeholder="user@theimrans.tech">
+            <input type="email" name="email" required placeholder="user@<?= htmlspecialchars($MAIL_DOMAIN) ?>">
             <label>Password</label>
             <input type="password" name="password" required placeholder="Enter password" minlength="8">
             <button type="submit" style="margin-top:14px;">Create New Email</button>
@@ -204,6 +217,33 @@ if ($rawList) {
             </table>
         <?php endif; ?>
     </div>
+<script>
+    const MAIL_DOMAIN = <?= json_encode($MAIL_DOMAIN) ?>;
 
+    document.addEventListener('DOMContentLoaded', function () {
+        const emailInput = document.querySelector('input[name="email"]');
+        if (!emailInput) return;
+
+        function normalizeEmail(value) {
+            value = value.trim();
+            if (!value) return '';
+            if (value.includes('@')) {
+                return value.split('@')[0] + '@' + MAIL_DOMAIN;
+            }
+            return value + '@' + MAIL_DOMAIN;
+        }
+
+        emailInput.addEventListener('blur', function () {
+            const normalized = normalizeEmail(this.value);
+            if (normalized) this.value = normalized;
+        });
+
+        emailInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                this.value = normalizeEmail(this.value);
+            }
+        });
+    });
+</script>
 </body>
 </html>
