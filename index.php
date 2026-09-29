@@ -44,7 +44,10 @@ if (empty($_SESSION['authenticated'])) {
 }
 
 // --- Discover mailserver container ---
-$containerName = trim(shell_exec("docker ps --filter 'name=mailserver' --format '{{.Names}}' 2>/dev/null | head -1"));
+$DOCKER = '/usr/bin/docker';
+
+$output = shell_exec("$DOCKER ps --filter 'name=mailserver' --format '{{.Names}}' 2>/dev/null | head -1");
+$containerName = $output !== null ? trim($output) : '';
 if (empty($containerName)) {
     die("⚠️ Mailserver container not found. Is it running?");
 }
@@ -64,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $safeEmail = escapeshellarg($email);
             $safePass  = escapeshellarg($password);
             $cmd = $action === 'add' ? 'add' : 'update';
-            $output = shell_exec("docker exec -i {$containerName} setup email {$cmd} {$safeEmail} {$safePass} 2>&1");
+            $output = shell_exec("$DOCKER exec -i {$containerName} setup email {$cmd} {$safeEmail} {$safePass} 2>&1");
 
             $lower = strtolower($output ?? '');
             if (str_contains($lower, 'error') || str_contains($lower, 'fail') || str_contains($lower, 'already exists')) {
@@ -81,14 +84,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $safeEmail = escapeshellarg($email);
-            $output = shell_exec("docker exec -i {$containerName} setup email del {$safeEmail} 2>&1");
+            $output = shell_exec("$DOCKER exec -i {$containerName} setup email del {$safeEmail} 2>&1");
             $message = "Account deleted: " . htmlspecialchars($email);
         }
     }
 }
 
 // --- List accounts ---
-$rawList = shell_exec("docker exec -i {$containerName} setup email list 2>&1");
+$rawList = shell_exec("$DOCKER exec -i {$containerName} setup email list 2>&1");
 $accounts = [];
 if ($rawList) {
     foreach (explode("\n", trim($rawList)) as $line) {
