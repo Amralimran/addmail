@@ -133,6 +133,23 @@ if ($rawList) {
         .topbar a:hover { color: #dc3545; }
         .inline-form { display: flex; gap: 6px; align-items: center; }
         .inline-form input[type="password"] { width: 140px; }
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .logout-link {
+            color: #a8a8a8;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        .logout-link:hover {
+            color: #dc3545;
+        }
+
     </style>
 </head>
 <body>
@@ -142,14 +159,18 @@ if ($rawList) {
     <?php if ($error): ?><div class="err"><?= htmlspecialchars($error); ?></div><?php endif; ?>
 
     <div class="card">
-        <h3>Add New Email Account</h3> <div class="topbar"><a href="?logout=1">Logout</a></div>
+        <div class="header-row">
+            <h3>Mailserver Account Manager</h3>
+            <a href="?logout=1" class="logout-link">Logout</a>
+        </div>
+
         <form method="POST">
             <input type="hidden" name="action" value="add">
             <label>Email Address</label>
             <input type="email" name="email" required placeholder="user@theimrans.tech">
             <label>Password</label>
             <input type="password" name="password" required placeholder="Enter password" minlength="8">
-            <button type="submit" style="margin-top:14px;">Create Email</button>
+            <button type="submit" style="margin-top:14px;">Create New Email</button>
         </form>
     </div>
 
